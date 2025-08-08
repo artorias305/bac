@@ -1,5 +1,5 @@
 bac: bac.c
-	gcc -g bac.c -o bac
+	gcc -g bac.c -o bac -lm
 
 run:
-	gcc -g bac.c -o bac && ./bac
+	gcc -g bac.c -o bac -lm && ./bac
