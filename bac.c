@@ -59,6 +59,13 @@ int main(int argc, char **argv)
         int input_base = str_to_int(argv[2]);
         int output_base = str_to_int(argv[3]);
 
+        if (input_base < 2 || input_base > 16 || output_base < 2 ||
+            output_base > 16) {
+                fprintf(stderr, "Error: input and output bases must be between "
+                                "2 and 16.\n");
+                exit(1);
+        }
+
         int converted = convert_to_10(input, input_base);
         printf("%d\n", converted);
 
