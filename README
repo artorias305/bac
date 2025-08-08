@@ -1,0 +1,5 @@
+Base Converter (bac)
+Converts a number from one base (2-16) to another (2-16).
+Usage: ./bac <number> <input base> <output base>
+Install: Run `make` to build, requires gcc.
+License: MIT

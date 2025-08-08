@@ -49,6 +49,46 @@ int convert_to_10(char *num, int base)
         return converted;
 }
 
+char *convert_from_10(int num, int base)
+{
+        if (num == 0) {
+                char *result = malloc(2);
+                if (!result) {
+                        fprintf(stderr, "Memory allocation failed\n");
+                        exit(1);
+                }
+                result[0] = '0';
+                result[1] = '\0';
+                return result;
+        }
+        int is_negative = num < 0 ? 1 : 0;
+        int temp = is_negative ? -num : num;
+        int len = 0;
+        while (temp > 0) {
+                len++;
+                temp /= base;
+        }
+        char *result = malloc(len + is_negative + 1);
+        if (!result) {
+                fprintf(stderr, "Memory allocation failed\n");
+                exit(1);
+        }
+
+        int i = len - 1;
+        temp = is_negative ? -num : num;
+        while (temp > 0) {
+                int remainder = temp % base;
+                result[i--] =
+                    remainder < 10 ? '0' + remainder : 'A' + remainder - 10;
+                temp /= base;
+        }
+        if (is_negative) {
+                result[0] = '-';
+        }
+        result[len + is_negative] = '\0';
+        return result;
+}
+
 int main(int argc, char **argv)
 {
         if (argc != 4) {
@@ -67,7 +107,9 @@ int main(int argc, char **argv)
         }
 
         int converted = convert_to_10(input, input_base);
-        printf("%d\n", converted);
+        char *result = convert_from_10(converted, output_base);
+        printf("%s\n", result);
+        free(result);
 
         return 0;
 }
