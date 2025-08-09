@@ -1,5 +1,11 @@
 Base Converter (bac)
 Converts a number from one base (2-16) to another (2-16).
+
 Usage: ./bac <number> <input base> <output base>
-Install: Run `make` to build, requires gcc.
+Examples:
+  ./bac 1010 2 16
+  ./bac FF 16 10
+
+Install: Run `make` to build, or `make run` to build and execute. Requires gcc.
+Notes: Supports digits 0-9, A-F (or a-f) for bases > 10. Large numbers may cause overflow.
 License: MIT

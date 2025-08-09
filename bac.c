@@ -2,7 +2,13 @@
 
 void print_help()
 {
-        printf("Usage: bac <number> <input base> <output base>\n");
+        printf("Base Converter (bac)\n"
+               "Usage: bac <number> <input base> <output base>\n"
+               "Converts a number from one base (2-16) to another (2-16).\n"
+               "Example: bac 1010 2 16 # Converts a binary 1010 to hexadecimal "
+               "(A)\n"
+               "Bases must  be between 2 and 16. Use 0-9, A-F (or a-f) for "
+               "digits.\n");
         return;
 }
 
@@ -19,6 +25,10 @@ int char_to_digit(char c)
 
 int str_to_int(const char *str)
 {
+        if (!str || !*str) {
+                fprintf(stderr, "Error: Empty input for base\n");
+                exit(1);
+        }
         int num = 0;
         for (size_t i = 0; str[i]; i++) {
                 int digit = char_to_digit(str[i]);
@@ -33,8 +43,9 @@ int str_to_int(const char *str)
 
 int convert_to_10(char *num, int base)
 {
+        int is_negative = (num[0] == '-') ? 1 : 0;
         int converted = 0;
-        for (size_t i = 0; num[i]; i++) {
+        for (size_t i = is_negative; num[i]; i++) {
                 int digit = char_to_digit(num[i]);
                 if (digit == -1 || digit >= base) {
                         fprintf(stderr, "Invalid digit %c for base %d\n",
@@ -43,7 +54,7 @@ int convert_to_10(char *num, int base)
                 }
                 converted = converted * base + digit;
         }
-        return converted;
+        return is_negative ? -converted : converted;
 }
 
 char *convert_from_10(int num, int base)

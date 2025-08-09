@@ -1,5 +1,11 @@
-bac: bac.c
-	gcc -g bac.c -o bac
+CC = gcc
+CFLAGS = -g -Wall -Wextra
+
+bac: bac.c bac.h
+	$(CC) $(CFLAGS) bac.c -o bac
 
 run:
-	gcc -g bac.c -o bac && ./bac
+	$(CC) $(CFLAGS) bac.c -o bac && ./bac
+
+clean:
+	rm -f bac
